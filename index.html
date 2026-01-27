@@ -167,6 +167,7 @@
     </button>
 
     <div id="menu-roles" style="display: flex; flex-direction: column; align-items: center; overflow-y: auto; padding-top: 20px;">
+        
         <div style="text-align: center; width: 100%; margin-top: 109px; margin-bottom: 0px; padding: 10px 0;">
             <img src="https://www.sanildefonso.org.mx/expos/somospacifico/images/logo_txt.png" 
                  alt="Somos Pacífico" 
@@ -177,14 +178,24 @@
             <h2>Comerciante</h2>
             <p>Acapulco → Manila</p>
         </div>
-        <div class="tarjeta-rol" style="width: 90%;" onclick="accesoRol('Cartógrafo')"><h2>Cartógrafo</h2><p>Acapulco → Manila</p></div>
-        <div class="tarjeta-rol" style="width: 90%;" onclick="accesoRol('Navegante')"><h2>Navegante</h2><p>Manila → Acapulco</p></div>
-        <div class="tarjeta-rol" style="width: 90%;" onclick="accesoRol('Artesano')"><h2>Artesano</h2><p>Manila → Acapulco</p></div>
-
-        <div style="text-align: center; margin-top: 30px; padding-bottom: 20px; opacity: 0.8;">
-            <img src="" 
-                 style="max-width: 110px; height: auto; filter: brightness(0) invert(1);">
+        
+        <div class="tarjeta-rol" style="width: 90%;" onclick="accesoRol('Cartógrafo')">
+            <h2>Cartógrafo</h2>
+            <p>Acapulco → Manila</p>
         </div>
+        
+        <div class="tarjeta-rol" style="width: 90%;" onclick="accesoRol('Navegante')">
+            <h2>Navegante</h2>
+            <p>Manila → Acapulco</p>
+        </div>
+        
+        <div class="tarjeta-rol" style="width: 90%;" onclick="accesoRol('Artesano')">
+            <h2>Artesano</h2>
+            <p>Manila → Acapulco</p>
+        </div>
+
+        <div style="margin-top: 30px; padding-bottom: 40px;"></div>
+    </div>
     </div>
 
     <div id="map"></div>
@@ -703,6 +714,7 @@ async function enviarReporte() {
     });
 }
 </script>
+
 
 
 

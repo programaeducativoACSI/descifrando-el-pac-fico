@@ -9,8 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica&family=Pirata+One&display=swap" rel="stylesheet">
 
 <style>
-    /* 1. VARIABLES Y BASES */
-    :root { 
+        :root { 
         --azul-p: #1b2631; 
         --pergamino: #fdf5e6; 
         --oro: #b2945d; 
@@ -26,8 +25,7 @@
         overflow: hidden; 
     }
 
-    /* 2. MENÚ DE ROLES (Estilo Borrador con Radial Gradient) */
-    #menu-roles { 
+        #menu-roles { 
         display: flex; 
         flex-direction: column; 
         gap: 12px; 
@@ -61,7 +59,7 @@
         font-size: 1.8rem; 
     }
 
-    /* 3. MAPA */
+ 
     #map { 
         height: 100vh; 
         width: 100%; 
@@ -71,8 +69,7 @@
         background: #aad3df; 
     }
 
-    /* 4. PANEL DE DATOS (Elevado para proteger Marca de Agua) */
-    #panel-datos { 
+        #panel-datos { 
         position: absolute; 
         bottom: 90px; 
         width: 94%; 
@@ -214,7 +211,10 @@
                     <button type="button" class="btn-file" onclick="document.getElementById('archivo-oculto').click()">
                         📷 / 🎙️ ADJUNTAR EVIDENCIA
                     </button>
-                    <input type="file" id="archivo-oculto" accept="image/*,audio/*" style="display: none;" onchange="actualizarStatusArchivo()">
+                 <input type="file" id="archivo-oculto" 
+       accept="image/*,audio/*,.m4a,.mp3,.wav" 
+       style="display: none;" 
+       onchange="actualizarStatusArchivo()">
                     
                     <button onclick="enviarReporte()" class="btn-enviar">
                         📩 SELLAR REPORTE
@@ -341,9 +341,9 @@
             { n: "Corriente de Kuroshio",  d:`Palabras cotidianas como el agua llegaron a Filipinas desde Nueva España. Este intercambio lingüístico evidencia el papel del territorio como un “puente” que conecta materiales y culturas a ambos lados del océano.`,p:`Si tuvieras la encomienda de llevar alguna de estas piezas a un noble novohispano, ¿cual elegirías? tomale una foto`},
             { n: "Pacífico Norte",  d:`El sistema terminó en 1815, justo cuando México buscaba su soberanía. Para tu oficio, esto significó que los mapas dejaron de ser "Secretos de Estado" de la Corona Española para convertirse en los mapas de una nueva nación, transformando la cartografía militar en cartografía civil y artística.`,p:`Graba una nota de voz dirigida a los antiguos tripulantes del Galeón. Explícales que, aunque el Galeón ya no navega, la 'ruta' que trazaron sigue viva en el arte y en la identidad de la gente`},
             { n: "Islas Marianas (Guam)",  d:`Como Cartógrafo, ves en los murales de Rivera la confirmación de tu trabajo: México no es solo un destino, sino el eje central de un mapa global que tú ayudaste a definir y que el muralismo ahora celebra como identidad.`,p:`Como Cartógrafo, ves en los murales de Rivera la confirmación de tu trabajo: México no es solo un destino, sino el eje central de un mapa global que tú ayudaste a definir y que el muralismo ahora celebra como identidad.`},
-            { n: "Mar de Filipinas", d: `La infraestructura colonial fue la base de los puertos de las nuevas repúblicas.`, p: `¿Qué consejos darías a los cartógrafos del futuro?` },
-            { n: "Estrecho de San Bernardino", d: `La cartografía militar se transformó en civil y artística tras la independencia.`, p: `Busca en la pintura de Rivera un elemento natural identitario de México` },
-            { n: "Puerto de Manila", d: `Punto final de la ruta comercial del Galeón.`, p: `¿Qué libro de la sala te resulta más llamativo?` }
+            { n: "Mar de Filipinas", d: "Proximamente", p: "Proximamente" },
+            { n: "Estrecho de San Bernardino", d: "Proximamente 14", p: "¿Proximamente 14?" },
+            { n: "Puerto de Manila", d: "Proximamente 15", p: "¿Proximamente 15?" }
         ],
         "Comerciante": [
             { n: "Puerto de Acapulco", d: `El cacao, de origen mexicano, fue un bien de gran valor: además de consumirse, funcionó como moneda en Mesoamérica. Las deidades asociadas a él representan su poder económico y su papel como uno de los primeros productos agrícolas exportados masivamente hacia las islas.`, p:`Busca la pieza que creas que tendría el valor más alto en el mercado de 'curiosidades' de la época. Toma una fotografía y escribe como pie de foto: 'Precio estimado:...'`  },
@@ -358,9 +358,9 @@
             { n: "Corriente de Kuroshio", d: `El mercado del mestizaje cultural:La conquista de Filipinas dio origen a un intenso mestizaje cultural y social. Los trajes de los mestizos reflejan esta mezcla y revelan una nueva oportunidad comercial: prendas que combinan la elegancia europea con materiales asiáticos, destinadas a una clase social emergente y con demandas propias.`, p: `¿En qué condiciones crees que se debería de transportar las prendas?` },
             { n: "Pacífico Norte", d: `El Galeón fue un sistema que duró de 1565 a 1815. Como comerciante, este es el dato del "cierre de la empresa" tras 250 años, el modelo de monopolio que te protegía dejó de ser rentable debido a las guerras de independencia en México y la presión de nuevas potencias comerciales.`, p: `¿Qué objeto crees que haya sido el más difícil de conseguir una vez el Galeón dejó de navegar?` },
             { n: "Islas Marianas (Guam)", d: `Las obras de Rivera en esta sala son el producto final de ese mestizaje. Como mercader, entiendes que la riqueza de México hoy reside en esa mezcla única que tú mismo ayudaste a transportar en tus barcos siglos atrás.`, p: `Busca en las pinturas algún elemento que te recuerde a la riqueza del ´pasado (como el color de la tierra, el trabajo manual) y tómale una fotografía` },
-            { n: "Mar de Filipinas", d: `El fin del monopolio comercial dio paso a nuevas potencias en el Pacífico.`, p: `¿Qué objeto extrañarías más de la ruta de Manila?` },
-            { n: "Estrecho de San Bernardino", d: `Proximamente`, p: `¿Por qué este arte tiene tanto valor en mercados internacionales?` },
-            { n: "Puerto de Manila", d: `El puerto de carga principal para el tornaviaje.`, p: `Escribe el nombre del libro que más te gustó de la sala.` },
+            { n: "Mar de Filipinas", d: `Proximamente`, p: `Proximamente` },
+            { n: "Estrecho de San Bernardino", d: `Proximamente`, p: `Proximamente` },
+            { n: "Puerto de Manila", d: `Proximamente`, p: `Proximamente` },
         ]
     };
 
@@ -472,11 +472,77 @@ function accesoRol(rol) {
     }
 }
 
-// --- ABRIR GALERÍA PROPIA DEL DATO/OFICIO ---
+// --- 1. FUNCIÓN PARA ENVIAR REPORTE (VALIDACIÓN FLEXIBLE Y IPHONE) ---
+async function enviarReporte() {
+    const textoElement = document.getElementById('texto-bitacora');
+    const texto = textoElement ? textoElement.value : "";
+
+    // Lógica de "Salto de Sala" (Código secreto)
+    if (texto.trim().toUpperCase() === "KNAAN") {
+        salaActual = 15; 
+        renderPoint(salaActual); 
+        const btnNext = document.getElementById('btn-next');
+        if (btnNext) {
+            btnNext.disabled = false;
+            btnNext.style.display = "block";
+            btnNext.innerText = "📜 FINALIZAR TRAVESÍA";
+            btnNext.style.background = "#78281f";
+        }
+        if (textoElement) textoElement.value = ""; 
+        return; 
+    }
+
+    const inputArchivo = document.getElementById('archivo-oculto');
+    const archivo = inputArchivo ? inputArchivo.files[0] : null;
+    const hitoNombre = baseDeDatos[rolActivo][salaActual - 1].n;
+
+    // --- CORRECCIÓN: VALIDACIÓN FLEXIBLE ---
+    // Ahora permite enviar SI HAY texto O SI HAY archivo. Solo bloquea si ambos faltan.
+    if (!texto.trim() && !archivo) {
+        alert("Navegante, debes escribir un hallazgo o adjuntar una evidencia (foto/audio) para sellar el reporte.");
+        return;
+    }
+
+    let payload = {
+        idVisitante: viajeroID,
+        rol: rolActivo,
+        punto: hitoNombre,
+        texto: texto,
+        archivoB64: null,
+        tipoMime: null,
+        nombreArchivo: null
+    };
+
+    if (archivo) {
+        const reader = new FileReader();
+        const base64Promise = new Promise((resolve) => {
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(archivo);
+        });
+        
+        payload.archivoB64 = await base64Promise;
+        
+        // --- CORRECCIÓN PARA IPHONE ---
+        let mime = archivo.type;
+        // Si iOS no detecta el tipo pero es un archivo de audio común de Apple
+        if (!mime && archivo.name.toLowerCase().endsWith('.m4a')) {
+            mime = "audio/mp4"; 
+        }
+        
+        payload.tipoMime = mime;
+        payload.nombreArchivo = archivo.name;
+    }
+
+    // Llamamos a la función que ya tienes para hacer el fetch
+    enviarFetch(payload);
+}
+
+// --- FUNCIÓN PARA MOSTRAR LA BITÁCORA ---
 function abrirBitacoraCompartida() {
     const modal = document.getElementById('modal-bitacora');
     const lista = document.getElementById('lista-comentarios-modal');
-    const hitoActual = document.getElementById('nombre-hito').innerText;
+    const hitoElement = document.getElementById('nombre-hito');
+    const hitoActual = hitoElement ? hitoElement.innerText : "";
 
     if (!hitoActual || hitoActual === "Hito") return alert("Selecciona un punto primero.");
 
@@ -486,7 +552,7 @@ function abrirBitacoraCompartida() {
     fetch(APPS_SCRIPT_URL)
     .then(res => res.json())
     .then(data => {
-        // FILTRADO DOBLE: Por el Punto Y por el Rol (Oficio)
+        // Filtramos por Punto y Rol
         const filtrados = data.filter(d => d.punto === hitoActual && d.rol === rolActivo);
         
         if (filtrados.length === 0) {
@@ -494,21 +560,99 @@ function abrirBitacoraCompartida() {
             return;
         }
 
+        // Aquí es donde el JavaScript genera el HTML dinámicamente
         lista.innerHTML = filtrados.map(d => `
-            <div class="comentario-item" style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left: 5px solid #5dade2;">
-                <small style="color:#7f8c8d;">ID: ${d.id}</small>
-                <p style="margin:8px 0;">${d.texto}</p>
+            <div class="comentario-item" style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left: 5px solid #5dade2; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <small style="color:#7f8c8d;">ID: ${d.id || 'Anónimo'}</small>
+                <p style="margin:8px 0; font-size: 1rem; color: #1b2631;">${d.texto || "<i style='color:gray;'>Sin comentario escrito</i>"}</p>
                 ${crearElementoMultimedia(d.archivo)}
             </div>
         `).join("");
     })
-    .catch(() => lista.innerHTML = "Error al conectar con el Archivo Real.");
+    .catch(err => {
+        console.error("Error al cargar:", err);
+        lista.innerHTML = "Error al conectar con el Archivo Real.";
+    });
+}
+
+// --- ESTA FUNCIÓN DECIDE SI ESCRIBE HTML DE AUDIO O DE IMAGEN ---
+function crearElementoMultimedia(url) {
+    if (!url || url === "" || url === "null" || url === "undefined") return "";
+
+    const link = url.toLowerCase();
+    
+    // Detectamos si es audio (por extensión o por el prefijo que pusimos en enviarReporte)
+    const esAudio = link.includes("audio") || 
+                    link.endsWith(".m4a") || 
+                    link.endsWith(".mp3") || 
+                    link.endsWith(".wav") || 
+                    link.endsWith(".webm") ||
+                    link.includes("uc?export=download");
+
+    if (esAudio) {
+        // Genera el HTML del reproductor de audio
+        return `
+            <div style="margin-top:10px; background: #f4f7f7; padding: 12px; border-radius: 8px; border: 1px solid #d5dbdb;">
+                <p style="font-size:0.7rem; margin-bottom:8px; color: #78281f; font-weight: bold;">🎙️ EVIDENCIA SONORA</p>
+                <audio controls style="width: 100%; height: 35px;">
+                    <source src="${url}" type="audio/mp4">
+                    <source src="${url}" type="audio/mpeg">
+                    <source src="${url}" type="audio/webm">
+                    Tu navegador no soporta la reproducción de audio.
+                </audio>
+            </div>
+        `;
+    } else {
+        // Genera el HTML de la imagen
+        // Si falla (onerror), oculta el cuadro para que no se vea el icono roto
+        return `
+            <div style="margin-top:10px;">
+                <img src="${url}" 
+                     style="width:100%; border-radius:10px; border: 1px solid #b2945d; display: block;" 
+                     onerror="this.style.display='none';">
+            </div>
+        `;
+    }
 }
 
 function cerrarBitacora() {
-    document.getElementById('modal-bitacora').style.display = "none";
+    const modal = document.getElementById('modal-bitacora');
+    if(modal) modal.style.display = "none";
 }
+function cerrarBitacora() {
+    const modal = document.getElementById('modal-bitacora');
+    if(modal) modal.style.display = "none";
+}
+// --- 3. FUNCIÓN MULTIMEDIA (SOPORTE TOTAL IPHONE/ANDROID) ---
+function crearElementoMultimedia(url) {
+    if (!url || url === "" || url === "null") return "";
 
+    const link = url.toLowerCase();
+
+    // Detectar si es AUDIO (por nombre de archivo o contenido)
+    if (link.includes("audio") || link.endsWith(".m4a") || link.endsWith(".mp3") || link.endsWith(".wav") || link.endsWith(".webm")) {
+        return `
+            <div style="margin-top:10px; background: #f8f9f9; padding: 10px; border-radius: 8px; border: 1px solid #d6dbdf;">
+                <p style="font-size:0.7rem; margin-bottom:5px; color: #78281f; font-weight: bold;">🎙️ EVIDENCIA DE AUDIO:</p>
+                <audio controls style="width: 100%; height: 35px;">
+                    <source src="${url}" type="audio/mp4">
+                    <source src="${url}" type="audio/mpeg">
+                    <source src="${url}" type="audio/webm">
+                    <source src="${url}" type="audio/wav">
+                    Tu navegador no soporta la reproducción de audio.
+                </audio>
+            </div>
+        `;
+    } 
+    // Por defecto, tratar como IMAGEN
+    else {
+        return `
+            <div style="margin-top:10px;">
+                <img src="${url}" style="width:100%; border-radius:10px; border: 1px solid #b2945d;">
+            </div>
+        `;
+    }
+}
 
     // --- 5. SISTEMA DE COMENTARIOS Y APPS SCRIPT ---
    function cargarComentarios(punto) {
@@ -586,7 +730,7 @@ function cerrarBitacora() {
         if (file) { status.innerText = "📎 Listo para sellar: " + file.name; }
     }
 
-  // --- FUNCIÓN PARA AVANZAR O FINALIZAR ---
+  
 function siguienteSala() {
     console.log("Clic en botón. Sala actual:", salaActual);
 
@@ -610,12 +754,12 @@ function siguienteSala() {
     }
 }
 
-// --- FUNCIÓN PARA ENVIAR REPORTE (CON ATAJO KNAAN) ---
+
 async function enviarReporte() {
     const textoElement = document.getElementById('texto-bitacora');
     const texto = textoElement ? textoElement.value : "";
 
-    // --- ATAJO DE DESARROLLADOR: KNAAN ---
+    // 1. Lógica de "Salto de Sala" (Código secreto KNAAN)
     if (texto.trim().toUpperCase() === "KNAAN") {
         salaActual = 15; 
         renderPoint(salaActual); 
@@ -630,13 +774,13 @@ async function enviarReporte() {
         return; 
     }
 
-    // --- FLUJO NORMAL ---
     const inputArchivo = document.getElementById('archivo-oculto');
     const archivo = inputArchivo ? inputArchivo.files[0] : null;
     const hitoNombre = baseDeDatos[rolActivo][salaActual - 1].n;
 
+    // 2. VALIDACIÓN FLEXIBLE: Solo bloquea si falta TODO (Texto y Archivo)
     if (!texto.trim() && !archivo) {
-        alert("Navegante, debes escribir algo o adjuntar una evidencia.");
+        alert("Navegante, debes escribir un hallazgo o adjuntar una evidencia para sellar el reporte.");
         return;
     }
 
@@ -656,11 +800,24 @@ async function enviarReporte() {
             reader.onload = (e) => resolve(e.target.result);
             reader.readAsDataURL(archivo);
         });
+        
         payload.archivoB64 = await base64Promise;
-        payload.tipoMime = archivo.type;
-        payload.nombreArchivo = archivo.name;
+        
+        let mime = archivo.type;
+        let nombreOriginal = archivo.name;
+
+        // Detectamos si es audio por tipo o por extensión (iPhone)
+        if ((mime && mime.includes("audio")) || nombreOriginal.toLowerCase().endsWith('.m4a') || nombreOriginal.toLowerCase().endsWith('.mp3')) {
+            // TRUCO: Le ponemos el prefijo "AUDIO_" al nombre para que sea imposible de ignorar
+            nombreOriginal = "AUDIO_" + nombreOriginal;
+            if (!mime) mime = "audio/mp4"; 
+        }
+        
+        payload.tipoMime = mime;
+        payload.nombreArchivo = nombreOriginal;
     }
 
+    // Enviamos al servidor
     enviarFetch(payload);
 }
 
@@ -702,4 +859,6 @@ async function enviarReporte() {
         alert("Error de conexión. El Archivo Real no pudo recibir tu reporte.");
     });
 }
+
+
 </script>

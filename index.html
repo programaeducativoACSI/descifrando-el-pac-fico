@@ -2,6 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K60NZLB9SJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-K60NZLB9SJ');
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Galeón de Manila - Archivo Digital Completo</title>
     
@@ -371,22 +380,34 @@ function renderPoint(id, auto = false) {
 
     if (!hito || !info) return;
 
-    // --- 1. RESTAURAR INTERFAZ (Saca a la luz lo oculto en Sala 0) ---
+    // --- 1. RASTREO CON GOOGLE ANALYTICS (Investigación de Mercados) ---
+    if (typeof gtag === 'function') {
+        gtag('event', 'avance_sala', {
+            'numero_sala': id,
+            'nombre_hito': hito.n,
+            'rol_usuario': rolActivo
+        });
+    }
+
+    // --- 2. RESTAURAR INTERFAZ (Saca a la luz lo oculto en Sala 0) ---
     const zonaEscritura = document.querySelector('.area-bitacora'); 
     const zonaCarga = document.querySelector('.upload-container'); 
     
-    if(zonaEscritura) zonaEscritura.style.display = 'block';
-    if(zonaCarga) zonaCarga.style.display = 'block';
+    if(zonaEscritura) {
+        zonaEscritura.style.setProperty("display", "block", "important");
+    }
+    if(zonaCarga) {
+        zonaCarga.style.setProperty("display", "block", "important");
+    }
 
-    // --- 2. LIMPIEZA DE CAPAS PREVIAS ---
-    // Esto evita que el mapa se sature de memoria al avanzar salas
+    // --- 3. LIMPIEZA DE CAPAS PREVIAS ---
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker || layer instanceof L.Polyline) {
             map.removeLayer(layer);
         }
     });
 
-    // --- 3. CREAR MARCADOR ---
+    // --- 4. CREAR MARCADOR ---
     const marker = L.marker([hito.lat, hito.lng]).addTo(map);
 
     marker.on('click', () => {
@@ -402,11 +423,9 @@ function renderPoint(id, auto = false) {
             btnNext.style.display = 'block';
             btnNext.disabled = true;
             btnNext.innerText = "🔒 RESPONDE PARA AVANZAR";
-            // Aseguramos el color original por si venimos de la sala 15
             btnNext.style.background = "var(--oro)"; 
         }
 
-        // Limpieza de campo de texto para nueva entrada
         document.getElementById('texto-bitacora').value = "";
 
         // Movimiento de cámara al punto exacto
@@ -418,7 +437,7 @@ function renderPoint(id, auto = false) {
         if (window.cargarComentarios) cargarComentarios(info.n);
     });
 
-    // --- 4. DIBUJAR RUTA (Línea punteada) ---
+    // --- 5. DIBUJAR RUTA (Línea punteada) ---
     if (id > 1) {
         const hitoAnterior = rutaActual[id - 2];
         L.polyline(
@@ -432,7 +451,7 @@ function renderPoint(id, auto = false) {
         ).addTo(map);
     }
 
-        // Si auto es true, el marcador se "presiona" solo (útil para el botón Siguiente)
+    // 🔥 ACTIVACIÓN AUTOMÁTICA
     if (auto) {
         setTimeout(() => marker.fire('click'), 300);
     }
@@ -446,6 +465,10 @@ function siguienteSala() {
         const btnNext = document.getElementById('btn-next');
         if (btnNext) btnNext.style.display = 'none';
     } else {
+        tag('event', 'finalizar_museo', {
+        'rol_completado': rolActivo,
+        'id_viajero': viajeroID
+    });
         // Pantalla final
         document.getElementById('pantalla-final').style.display = 'flex';
         document.getElementById('panel-datos').style.display = 'none';
@@ -950,3 +973,4 @@ function enviarFetch(payload) {
 }
 
 </script>
+

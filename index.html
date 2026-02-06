@@ -635,7 +635,7 @@ async function enviarReporte() {
     enviarFetch(payload);
 }
 
-// --- FUNCIÓN PARA MOSTRAR LA BITÁCORA ---
+
 function abrirBitacoraCompartida() {
     const modal = document.getElementById('modal-bitacora');
     const lista = document.getElementById('lista-comentarios-modal');
@@ -658,7 +658,7 @@ function abrirBitacoraCompartida() {
             return;
         }
 
-        // Aquí es donde el JavaScript genera el HTML dinámicamente
+       
         lista.innerHTML = filtrados.map(d => `
             <div class="comentario-item" style="background:white; padding:15px; border-radius:10px; margin-bottom:15px; border-left: 5px solid #5dade2; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                 <small style="color:#7f8c8d;">ID: ${d.id || 'Anónimo'}</small>
@@ -673,13 +673,13 @@ function abrirBitacoraCompartida() {
     });
 }
 
-// --- ESTA FUNCIÓN DECIDE SI ESCRIBE HTML DE AUDIO O DE IMAGEN ---
+
 function crearElementoMultimedia(url) {
     if (!url || url === "" || url === "null" || url === "undefined") return "";
 
     const link = url.toLowerCase();
     
-    // Detectamos si es audio (por extensión o por el prefijo que pusimos en enviarReporte)
+    
     const esAudio = link.includes("audio") || 
                     link.endsWith(".m4a") || 
                     link.endsWith(".mp3") || 
@@ -688,7 +688,7 @@ function crearElementoMultimedia(url) {
                     link.includes("uc?export=download");
 
     if (esAudio) {
-        // Genera el HTML del reproductor de audio
+       
         return `
             <div style="margin-top:10px; background: #f4f7f7; padding: 12px; border-radius: 8px; border: 1px solid #d5dbdb;">
                 <p style="font-size:0.7rem; margin-bottom:8px; color: #78281f; font-weight: bold;">🎙️ EVIDENCIA SONORA</p>
@@ -701,8 +701,7 @@ function crearElementoMultimedia(url) {
             </div>
         `;
     } else {
-        // Genera el HTML de la imagen
-        // Si falla (onerror), oculta el cuadro para que no se vea el icono roto
+       
         return `
             <div style="margin-top:10px;">
                 <img src="${url}" 
@@ -721,13 +720,13 @@ function cerrarBitacora() {
     const modal = document.getElementById('modal-bitacora');
     if(modal) modal.style.display = "none";
 }
-// --- 3. FUNCIÓN MULTIMEDIA (SOPORTE TOTAL IPHONE/ANDROID) ---
+
 function crearElementoMultimedia(url) {
     if (!url || url === "" || url === "null") return "";
 
     const link = url.toLowerCase();
 
-    // Detectar si es AUDIO (por nombre de archivo o contenido)
+    
     if (link.includes("audio") || link.endsWith(".m4a") || link.endsWith(".mp3") || link.endsWith(".wav") || link.endsWith(".webm")) {
         return `
             <div style="margin-top:10px; background: #f8f9f9; padding: 10px; border-radius: 8px; border: 1px solid #d6dbdf;">
@@ -752,7 +751,7 @@ function crearElementoMultimedia(url) {
     }
 }
 
-    // --- 5. SISTEMA DE COMENTARIOS Y APPS SCRIPT ---
+    
    function cargarComentarios(punto) {
     const lista = document.getElementById('lista-comentarios');
     lista.innerHTML = "<em>Buscando en los archivos reales...</em>";
@@ -825,7 +824,7 @@ function crearElementoMultimedia(url) {
     function actualizarStatusArchivo() {
         const file = document.getElementById('archivo-oculto').files[0];
         const status = document.getElementById('status-archivo');
-        if (file) { status.innerText = "🔗 Listo para sellar: " + file.name; }
+        if (file) { status.innerText = `🔗 Listo para sellar (⚠️Fotografía unicamente la pieza, sin rotro de personas): ` + file.name; }
     }
 
   
@@ -973,6 +972,7 @@ function enviarFetch(payload) {
 }
 
 </script>
+
 
 
 

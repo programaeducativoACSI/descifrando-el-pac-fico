@@ -166,6 +166,21 @@
     }
 
     #status-archivo { color: var(--verde-sello); font-weight: bold; text-align: center; margin-bottom: 10px; }
+/* Diseño de la Cápsula de Sala */
+#sala-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px; /* Forma de cápsula completa */
+    font-weight: bold;
+    font-family: 'Pirata One', cursive; /* El estilo de fuente de tu proyecto */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Sombra para que resalte */
+    transition: all 0.4s ease; /* Para que el cambio de color sea suave al avanzar */
+    margin-bottom: 15px;
+    border: 2px solid rgba(255,255,255,0.2); /* Un borde sutil para que se vea más pro */
+}
 </style>
 <body>
     <button id="btn-bitacora-global" onclick="abrirBitacoraCompartida()" class="btn-bitacora-flotante" style="display: none;">
@@ -318,7 +333,7 @@
             { n: "Punta de Baja California", d: `Es reconocida por portar el mantón de Manila, un paño de seda originalmente tejido en Cantón, salpicado de coloridos motivos y rematado con flecos. Su nombre se deriva de la capital filipina, desde donde era enviado a España a través de los puertos mexicanos.`, p: `Toma una foto del artículo mencionado, el cual era exportado a través de puertos Mexicanos ` },
             { n: "Mar de Cortés", d: `Con la Independencia de México, los galeones fueron desapareciendo, entonces tu oficio, su nombre y peculiaridades evolucionaron ahora navegante es usted un Capitán de buque. Desde 1765, la Real Armada Española abrió rutas directas entre España y Manila para crear una alternativa comercial, fortaleciendo el control económico y político en Filipinas. La Independencia de México debilitó la ruta transpacífica y, desde 1815, los viajes del galeón perdieron relevancia progresivamente.`, p: `Navegante, tal vez este sea tu último viaje por el pacifico como lo conoces, ¿Cuál sería la lección más importante que la navegación te ha dado? ` },
             { n: "Cabo Corrientes", d: `Miguel Covarrubias fue un artista y antropólogo mexicano que, tras viajar a Bali, publicó Island of Bali (1937), obra clave para difundir la isla a nivel mundial. En 1940 realizó murales para la Exposición del Golden Gate donde se resaltó la diversidad cultural del Pacífico y cuestionaron visiones exóticas`, p: `Que libro llevarías como parte de tu viaje, elije sabiamente. Toma una foto9` },
-            { n: "Costa de Michoacán", d: `sala 14.`, p: `sala 14` },
+            { n: "Costa de Michoacán", d: `Apichatpong Weerasethakul, (Tailandia, 1970) es un director, productor y guionista de cine y artista visual tailandés. En su obra, la realidad, la fantasía, los sueños, las pesadillas y los fantasmas conviven en un mismo lugar que opera según sus propias reglas, y que trata de reflejar la vida tal y como la percibimos.`, p: `A través de tu profesión ¿De qué forma podrías retratar la vida como la conoces? ` },
             { n: "Puerto de Acapulco", d: `Reflexión `, p: `¿Cómo imaginas que los navegantes del mañana se verán a sí mismos dentro de un mundo donde las rutas, el comercio y la comunicación están cada vez más conectados?` }
         ],
       "Artesano": [
@@ -335,7 +350,7 @@
     { n: "Punta de Baja California", d: `Con la Independencia de México, los galeones fueron desapareciendo; entonces tu oficio, su nombre y peculiaridades evolucionaron. Ahora, querido artesano, es usted un pintor muralista. A lo largo de los casi trescientos años que duró la ruta, no solo se intercambiaron mercancías, sino también costumbres. Los viajeros del siglo XIX representaron lugares desde una perspectiva romántica e idealizada.`, p: `Identifica en la sala un artículo de artesanía que representa la mezcla cultural y la visión “romántica” de aquellos viajes del Galeón.` },
     { n: "Mar de Cortés", d: `En el siglo XX, los movimientos de liberación en el sudeste asiático propiciaron que artistas de Filipinas, Indonesia y Malasia se enfrentaran a las convenciones. Victorio Edades, Carlos Botong y otros lanzaron manifiestos reivindicando sus raíces. Esta actitud desafiante, llamada “Tropical”, permitió el surgimiento de posibilidades creativas.`, p: `Identifica en la sala un artículo de artesanía que representa la mezcla cultural y la visión “romántica” de aquellos viajes del Galeón.` },
     { n: "Cabo Corrientes", d: `Los artistas del sudeste asiático usaron el retrato para representarse de forma auténtica. Al incorporar símbolos y técnicas indígenas, expresaron identidad, solidaridad y pertenencia, dando forma a una visión de nación emergente como proyecto político y cultural compartido.`, p: `Toma una foto al retrato de esta sala que te haga sentir personificado y escribe el por qué.` },
-    { n: "Costa de Michoacán", d: `sala 14`, p: `sala 14` },
+    { n: "Costa de Michoacán", d: `Apichatpong Weerasethakul, (Tailandia, 1970) es un director, productor y guionista de cine y artista visual tailandés. En su obra, la realidad, la fantasía, los sueños, las pesadillas y los fantasmas conviven en un mismo lugar que opera según sus propias reglas, y que trata de reflejar la vida tal y como la percibimos.`, p: `A través de tu profesión ¿De qué forma podrías retratar la vida como la conoces? ` },
     { n: "Puerto de Acapulco", d: `¿Crees que en el futuro los mapas dejarán de ser solo herramientas técnicas para convertirse también en expresiones artísticas?`, p: `¿Qué papel tendrían entonces pintores, fotógrafos, escultores, etc., en su creación?` }
 ],
        "Cartógrafo": [
@@ -350,9 +365,9 @@
     { n: "Meridiano 180", d:`A finales del siglo XVI, los intentos de evangelizar Japón generaron tensiones que culminaron en la crucifixión de 26 misioneros y conversos en Nagasaki en 1597. Entre ellos estaba Felipe de las Casas, joven criollo nacido en la Ciudad de México. Su muerte impactó a la sociedad novohispana y, tras su beatificación en 1627, Felipe de Jesús se convirtió en un símbolo religioso y en patrono de la Ciudad de México.`, p:`Toma una foto del mártir y patrono de la Ciudad de México, Felipe de Jesús.`},
     { n: "Corriente de Kuroshio", d:`Palabras cotidianas como 'nagua' llegaron a Filipinas desde Nueva España. Este intercambio lingüístico evidencia el papel del territorio como un “puente” que conecta materiales y culturas a ambos lados del océano.`, p:`Si tuvieras la encomienda de llevar alguna de estas piezas a un noble novohispano, ¿cuál elegirías? Tómale una foto.`},
     { n: "Pacífico Norte", d:`Con la Independencia de México, los galeones fueron desapareciendo; entonces, señor cartógrafo, su oficio evolucionó a Ingeniero Cartógrafo. El sistema terminó en 1815, justo cuando México buscaba su soberanía. Los mapas dejaron de ser "Secretos de Estado" de la Corona para convertirse en mapas de una nueva nación, transformando la cartografía militar en civil y artística.`, p:`Escribe una nota dirigida a los antiguos tripulantes del Galeón. Explícales que, aunque el Galeón ya no navega, la 'ruta' que trazaron sigue viva en el arte y en la identidad de la gente.`},
-    { n: "Islas Marianas (Guam)", d:`Como cartógrafo, ves en los murales de Rivera la confirmación de tu trabajo: México no es solo un destino, sino el eje central de un mapa global que tú ayudaste a definir y que el muralismo ahora celebra como identidad.`, p:`Toma una foto de algún elemento de la sala que te recuerde la importancia de la tierra y de los mapas.`},
+    { n: "Islas Marianas (Guam)", d:`Como cartógrafo, en los murales de Rivera ves reflejada la confirmación de tu trabajo: México no es solo un destino, sino el eje central de un mapa global que tú ayudaste a definir y que el muralismo ahora celebra como identidad.`, p:`Toma una foto de algún elemento de la sala que te recuerde la importancia de la tierra y de los mapas.`},
     { n: "Mar de Filipinas", d: `Miguel Covarrubias fue un artista y antropólogo mexicano que, tras viajar a Bali, publicó Island of Bali (1937), obra clave para difundir la isla a nivel mundial. En 1940 realizó murales para la exposición del Golden Gate que resaltaban la diversidad cultural del Pacífico y cuestionaban visiones exóticas.`, p: `Señala el mapa que consideres toma en cuenta no solo rutas y territorio, sino todo aquello que ha interconectado la ruta del Galeón Acapulco-Manila.` },
-    { n: "Estrecho de San Bernardino", d: `sala 14`, p: `sala 14` },
+    { n: "Estrecho de San Bernardino", d: `Apichatpong Weerasethakul, (Tailandia, 1970) es un director, productor y guionista de cine y artista visual tailandés. En su obra, la realidad, la fantasía, los sueños, las pesadillas y los fantasmas conviven en un mismo lugar que opera según sus propias reglas, y que trata de reflejar la vida tal y como la percibimos.`, p: `A través de tu profesión ¿De qué forma podrías retratar la vida como la conoces? ` },
     { n: "Puerto de Manila", d: `Con la tecnología y el uso de la IA,`, p: `¿Crees que en el futuro los mapas los harán solo expertos o también personas comunes? ¿Cómo cambiaría eso la manera en que vemos y entendemos el mundo?` }
 ],
        "Comerciante": [
@@ -369,18 +384,33 @@
     { n: "Pacífico Norte", d: `Con la Independencia de México, los galeones desaparecieron; ahora, comerciante, es usted un empresario. La presencia de Oriente es tangible en la pólvora de los fuegos artificiales, el papel picado que adorna nuestras fiestas y las peleas de gallos.`, p: `Identifica un elemento en la sala que represente este legado comercial en la actualidad.` },
     { n: "Islas Marianas (Guam)", d: `En 1921, Siqueiros publica su manifiesto vinculado a las vanguardias. En paralelo, México vive la pacificación posrevolucionaria, donde la cultura y la educación se vuelven claves para reconstruir la nación y promover nuevos ideales de igualdad.`, p: `Busca en la sala una representación de este intercambio comercial/cultural y tómale una foto.` },
     { n: "Mar de Filipinas", d: `La Biblioteca de los Trópicos reúne libros, películas y pinturas sobre Bali. Durante mucho tiempo retratada como paraíso tropical, Bali ocupa un lugar central en el arte del siglo XX. Miguel Covarrubias rastreó las afinidades entre este lugar y el sur de México.`, p: `De acuerdo a tu conocimiento de comerciante, ¿qué libros consideras que serían los más adecuados para distribuirse en México? Toma una foto.` },
-    { n: "Estrecho de San Bernardino", d: `sala 14`, p: `sala 14` },
+    { n: "Estrecho de San Bernardino", d: `Apichatpong Weerasethakul, (Tailandia, 1970) es un director, productor y guionista de cine y artista visual tailandés. En su obra, la realidad, la fantasía, los sueños, las pesadillas y los fantasmas conviven en un mismo lugar que opera según sus propias reglas, y que trata de reflejar la vida tal y como la percibimos. `, p: `A través de tu profesión ¿De qué forma podrías retratar la vida como la conoces?` },
     { n: "Puerto de Manila", d: `Reflexión`, p: `Considerando el auge, la crisis y la reconfiguración de las rutas comerciales del Pacífico, ¿cómo imaginas que los comerciantes del futuro participarán en este intercambio global?` }
 ]
     };
+function aplicarColorPorRango(numeroSala) {
+    const etiquetaSala = document.getElementById('sala-tag');
+    if (!etiquetaSala) return;
 
-function renderPoint(id, auto = false) {
+    let colorRango;
+
+    if (numeroSala >= 1 && numeroSala <= 3) {
+        colorRango = "#e84d10";
+    } else if (numeroSala >= 4 && numeroSala <= 10) {
+        colorRango = "#0047c2";
+    } else if (numeroSala >= 11 && numeroSala <= 15) {
+        colorRango = "#7000aa";
+    }
+
+        etiquetaSala.style.borderColor = colorRango;
+    etiquetaSala.style.color = colorRango;
+}function renderPoint(id, auto = false) {
     const hito = rutaActual[id - 1];
     const info = baseDeDatos[rolActivo][id - 1];
 
     if (!hito || !info) return;
 
-    // --- 1. RASTREO CON GOOGLE ANALYTICS (Investigación de Mercados) ---
+    // --- 1. RASTREO GA4 ---
     if (typeof gtag === 'function') {
         gtag('event', 'avance_sala', {
             'numero_sala': id,
@@ -389,92 +419,64 @@ function renderPoint(id, auto = false) {
         });
     }
 
-    // --- 2. RESTAURAR INTERFAZ (Saca a la luz lo oculto en Sala 0) ---
-    const zonaEscritura = document.querySelector('.area-bitacora'); 
-    const zonaCarga = document.querySelector('.upload-container'); 
-    
-    if(zonaEscritura) {
-        zonaEscritura.style.setProperty("display", "block", "important");
-    }
-    if(zonaCarga) {
-        zonaCarga.style.setProperty("display", "block", "important");
-    }
-
-    // --- 3. LIMPIEZA DE CAPAS PREVIAS ---
+    // --- 2. LIMPIEZA DE CAPAS ---
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker || layer instanceof L.Polyline) {
             map.removeLayer(layer);
         }
     });
 
-    // --- 4. CREAR MARCADOR ---
+    // --- 3. CREAR MARCADOR ---
     const marker = L.marker([hito.lat, hito.lng]).addTo(map);
 
+    // --- 4. EVENTO CLICK DEL MARCADOR ---
     marker.on('click', () => {
-        // Actualización de textos en el panel
+        // APLICAR COLOR SEGÚN RANGO
+        aplicarColorPorRango(id); 
+
+        // Actualizar textos
         document.getElementById('nombre-hito').innerText = info.n;
         document.getElementById('info-dato').innerText = info.d;
         document.getElementById('info-pregunta').innerText = info.p;
-        document.getElementById('sala-tag').innerText = `Sala ${id}/15`;
+        document.getElementById('sala-tag').innerText = `SALA ${id}/15`;
 
-        // Configuración del botón de avance
+        // Mostrar zonas de interacción
+        const zonaEscritura = document.querySelector('.area-bitacora'); 
+        const zonaCarga = document.querySelector('.upload-container'); 
+        if(zonaEscritura) zonaEscritura.style.display = "block";
+        if(zonaCarga) zonaCarga.style.display = "block";
+
+        // Configurar botón de avance
         const btnNext = document.getElementById('btn-next');
         if (btnNext) {
             btnNext.style.display = 'block';
             btnNext.disabled = true;
             btnNext.innerText = "🔒 RESPONDE PARA AVANZAR";
-            btnNext.style.background = "var(--oro)"; 
+            btnNext.style.background = "#b2945d"; 
         }
 
         document.getElementById('texto-bitacora').value = "";
 
-        // Movimiento de cámara al punto exacto
-        map.flyTo([hito.lat, hito.lng], 5, { 
-            animate: true,
-            duration: 1.5 
-        });
+        // Cámara
+        map.flyTo([hito.lat, hito.lng], 5, { animate: true, duration: 1.5 });
         
         if (window.cargarComentarios) cargarComentarios(info.n);
     });
 
-    // --- 5. DIBUJAR RUTA (Línea punteada) ---
+    // --- 5. DIBUJAR LÍNEA DE RUTA ---
     if (id > 1) {
         const hitoAnterior = rutaActual[id - 2];
         L.polyline(
             [[hitoAnterior.lat, hitoAnterior.lng], [hito.lat, hito.lng]],
-            { 
-                color: '#1b2631', 
-                weight: 3, 
-                dashArray: '8, 12', 
-                opacity: 0.6 
-            }
+            { color: '#1b2631', weight: 3, dashArray: '8, 12', opacity: 0.6 }
         ).addTo(map);
     }
 
-    // 🔥 ACTIVACIÓN AUTOMÁTICA
+    // --- 6. AUTO-CLICK ---
     if (auto) {
         setTimeout(() => marker.fire('click'), 300);
     }
 }
-function siguienteSala() {
-    if (salaActual < 15) {
-        salaActual++;
-        // El 'true' activa el movimiento automático del mapa
-        renderPoint(salaActual, true); 
-        
-        const btnNext = document.getElementById('btn-next');
-        if (btnNext) btnNext.style.display = 'none';
-    } else {
-        tag('event', 'finalizar_museo', {
-        'rol_completado': rolActivo,
-        'id_viajero': viajeroID
-    });
-        // Pantalla final
-        document.getElementById('pantalla-final').style.display = 'flex';
-        document.getElementById('panel-datos').style.display = 'none';
-    }
-}
-
 function accesoRol(rol) {
     const pass = prompt(`Ingrese la contraseña de acceso para el perfil de ${rol}:`);
     
@@ -972,6 +974,7 @@ function enviarFetch(payload) {
 }
 
 </script>
+
 
 
 

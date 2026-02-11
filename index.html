@@ -972,8 +972,29 @@ function enviarFetch(payload) {
         }
     });
 }
+    let temporizadorInactividad;
+
+function resetearRelojInactividad() {
+    clearTimeout(temporizadorInactividad);
+    
+    temporizadorInactividad = setTimeout(regresarAlMenuPrincipal, 1200000); 
+}
+
+function regresarAlMenuPrincipal() {
+    // En lugar de recargar, simplemente forzamos el estado inicial
+    // Esto asegura que Analytics registre el fin de la navegación activa
+    window.location.href = window.location.pathname; 
+}
+
+// Escuchamos todas las interacciones posibles para saber que el usuario sigue ahí
+window.onload = resetearRelojInactividad;
+document.onmousemove = resetearRelojInactividad;
+document.onkeypress = resetearRelojInactividad;
+document.onclick = resetearRelojInactividad;
+document.ontouchstart = resetearRelojInactividad; // Crucial para los móviles (75% de tus usuarios)
 
 </script>
+
 
 
 

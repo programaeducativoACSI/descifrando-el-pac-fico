@@ -170,18 +170,19 @@
 #sala-tag {
     display: inline-block;
     padding: 6px 16px;
-    border-radius: 50px; /* Forma de cápsula completa */
+    border-radius: 50px; 
     font-weight: bold;
-    font-family: 'Pirata One', cursive; /* El estilo de fuente de tu proyecto */
+    font-family: 'Pirata One', cursive; 
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 1rem;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); /* Sombra para que resalte */
-    transition: all 0.4s ease; /* Para que el cambio de color sea suave al avanzar */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2); 
+    transition: all 0.4s ease; 
     margin-bottom: 15px;
-    border: 2px solid rgba(255,255,255,0.2); /* Un borde sutil para que se vea más pro */
+    border: 2px solid rgba(255,255,255,0.2); 
 }
-    #info-dato {
+
+#info-dato {
     font-size: 1.2rem;       
     line-height: 1.6;           color: var(--tinta);
     margin-bottom: 15px;
@@ -200,12 +201,11 @@
 
 
 #nombre-hito {
-    font-size: 2rem;         
+    font-size: 2rem;         /* Bastante grande para que sea lo primero que lean */
     font-family: 'Pirata One', cursive;
     color: var(--azul-p);
     margin-top: 5px;
 }
-
 </style>
 <body>
     <button id="btn-bitacora-global" onclick="abrirBitacoraCompartida()" class="btn-bitacora-flotante" style="display: none;">
@@ -258,9 +258,9 @@
                     <div id="status-archivo"></div> 
                     
                     <button type="button" class="btn-file" onclick="document.getElementById('archivo-oculto').click()">
-                         📷 Pulsa para tomar una foto
+                        📷 Pulsa para tomar una foto
                     </button>
-                  <input type="file" id="archivo-oculto" 
+                <input type="file" id="archivo-oculto" 
        accept="image/*" 
        style="display: none;" 
        onchange="actualizarStatusArchivo()">
@@ -323,7 +323,7 @@
 
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwMNAn0fcQogSy6-qiZGUYPUfcIr57tgPUV6icfrvmlglUz1IAbVd2rvNN3hsqyVVen/exec"; 
 
-    // --- 2. RUTA BAS
+    
  const rutaBase = [
     { n: "Puerto de Manila", lat: 14.59, lng: 120.98 },
     { n: "Estrecho de San Bernardino", lat: 12.58, lng: 124.28 },
@@ -429,13 +429,14 @@ function aplicarColorPorRango(numeroSala) {
 
         etiquetaSala.style.borderColor = colorRango;
     etiquetaSala.style.color = colorRango;
-}function renderPoint(id, auto = false) {
+}
+function renderPoint(id, auto = false) {
     const hito = rutaActual[id - 1];
     const info = baseDeDatos[rolActivo][id - 1];
 
     if (!hito || !info) return;
 
-    // --- 1. RASTREO GA4 ---
+    
     if (typeof gtag === 'function') {
         gtag('event', 'avance_sala', {
             'numero_sala': id,
@@ -444,7 +445,7 @@ function aplicarColorPorRango(numeroSala) {
         });
     }
 
-    // --- 2. LIMPIEZA DE CAPAS ---
+    
     map.eachLayer((layer) => {
         if (layer instanceof L.Marker || layer instanceof L.Polyline) {
             map.removeLayer(layer);
@@ -488,7 +489,7 @@ function aplicarColorPorRango(numeroSala) {
         if (window.cargarComentarios) cargarComentarios(info.n);
     });
 
-    // --- 5. DIBUJAR LÍNEA DE RUTA ---
+    
     if (id > 1) {
         const hitoAnterior = rutaActual[id - 2];
         L.polyline(
@@ -605,7 +606,7 @@ async function enviarReporte() {
     // Lógica de "Salto de Sala" (Código secreto)
     if (texto.trim().toUpperCase() === "KNAAN") {
         salaActual = 15; 
-        renderPoint(salaActual); 
+        renderPoint(salaActual, true); // El 'true' activa el movimiento automático
         const btnNext = document.getElementById('btn-next');
         if (btnNext) {
             btnNext.disabled = false;
@@ -618,14 +619,19 @@ async function enviarReporte() {
     }
 
     const inputArchivo = document.getElementById('archivo-oculto');
-    const archivo = inputArchivo ? inputArchivo.files[0] : null;
+    const archivoOriginal = inputArchivo ? inputArchivo.files[0] : null;
     const hitoNombre = baseDeDatos[rolActivo][salaActual - 1].n;
 
-    // --- CORRECCIÓN: VALIDACIÓN FLEXIBLE ---
-    // Ahora permite enviar SI HAY texto O SI HAY archivo. Solo bloquea si ambos faltan.
-    if (!texto.trim() && !archivo) {
-        alert("Navegante, debes escribir un hallazgo o adjuntar una evidencia (foto/audio) para sellar el reporte.");
+    if (!texto.trim() && !archivoOriginal) {
+        alert("Navegante, debes escribir un hallazgo o adjuntar una evidencia para sellar el reporte.");
         return;
+    }
+
+    // --- CAMBIO ESTRATÉGICO: Mostrar estado de carga inmediato ---
+    const btnSellar = document.querySelector('button[onclick="enviarReporte()"]');
+    if (btnSellar) {
+        btnSellar.disabled = true;
+        btnSellar.innerText = "⌛ PROCESANDO EVIDENCIA...";
     }
 
     let payload = {
@@ -634,32 +640,69 @@ async function enviarReporte() {
         punto: hitoNombre,
         texto: texto,
         archivoB64: null,
-        tipoMime: null,
-        nombreArchivo: null
+        tipoMime: "image/jpeg", // Forzamos JPEG para máxima compatibilidad
+        nombreArchivo: archivoOriginal ? "foto_" + Date.now() + ".jpg" : null
     };
 
-    if (archivo) {
-        const reader = new FileReader();
-        const base64Promise = new Promise((resolve) => {
-            reader.onload = (e) => resolve(e.target.result);
-            reader.readAsDataURL(archivo);
-        });
-        
-        payload.archivoB64 = await base64Promise;
-        
-        // --- CORRECCIÓN PARA IPHONE ---
-        let mime = archivo.type;
-        // Si iOS no detecta el tipo pero es un archivo de audio común de Apple
-        if (!mime && archivo.name.toLowerCase().endsWith('.m4a')) {
-            mime = "audio/mp4"; 
+    if (archivoOriginal) {
+        try {
+            // --- COMPRESIÓN DE IMAGEN ON-THE-FLY ---
+            // Esto reduce una foto de 10MB a unos 300KB en milisegundos
+            payload.archivoB64 = await comprimirImagen(archivoOriginal);
+        } catch (error) {
+            console.error("Error comprimiendo:", error);
+            alert("La imagen es muy pesada. Intenta con otra o solo con texto.");
+            if (btnSellar) {
+                btnSellar.disabled = false;
+                btnSellar.innerText = "SELLAR REPORTE";
+            }
+            return;
         }
-        
-        payload.tipoMime = mime;
-        payload.nombreArchivo = archivo.name;
     }
 
-    // Llamamos a la función que ya tienes para hacer el fetch
+    // Enviamos el payload ya ligero
     enviarFetch(payload);
+}
+
+// --- FUNCIÓN AUXILIAR DE COMPRESIÓN (Añádela a tu script) ---
+function comprimirImagen(archivo) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(archivo);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 1000; // Suficiente para ver bien en el Dashboard
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_WIDTH) {
+                        width *= MAX_WIDTH / height;
+                        height = MAX_WIDTH;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // 0.7 es la calidad (70%). Reduce el peso drásticamente sin perder detalle visual.
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                resolve(dataUrl);
+            };
+            img.onerror = reject;
+        };
+        reader.onerror = reject;
+    });
 }
 
 
@@ -843,11 +886,10 @@ function crearElementoMultimedia(url) {
             </audio>
         </div>`;
 
-    // Si el nombre del archivo o la URL sugieren audio, mostramos el reproductor
     return (url.toLowerCase().match(/(audio|mp3|wav|m4a|ogg)/)) ? htmlAudio : htmlImagen;
 }
 
-    // --- 4. ENVÍO DE REPORTES ---
+    
     function actualizarStatusArchivo() {
         const file = document.getElementById('archivo-oculto').files[0];
         const status = document.getElementById('status-archivo');
@@ -856,15 +898,24 @@ function crearElementoMultimedia(url) {
 
   
 function siguienteSala() {
-    console.log("Clic en botón. Sala actual:", salaActual);
+    console.log("Avanzando a sala:", salaActual + 1);
 
     if (salaActual < 15) {
         salaActual++;
-        renderPoint(salaActual);
+        
+        // Guardamos el progreso por si falla la memoria (lo que configuramos antes)
+        localStorage.setItem('sala_guardada', salaActual);
+        localStorage.setItem('rol_guardado', rolActivo);
+
+        // --- LA CLAVE: Llamamos a renderPoint con 'true' para que se abra solo ---
+        renderPoint(salaActual, true);
+
+        // Ocultamos el botón para que no lo presionen dos veces antes de responder
         const btnNext = document.getElementById('btn-next');
         if (btnNext) btnNext.style.display = 'none';
+
     } else {
-        // Secuencia de fin de viaje
+        // Secuencia de fin de viaje (Sala 15)
         const pantallaFinal = document.getElementById('pantalla-final');
         const rDisplay = document.getElementById('final-rol');
         const iDisplay = document.getElementById('final-id');
@@ -872,12 +923,15 @@ function siguienteSala() {
         if (pantallaFinal && rDisplay && iDisplay) {
             rDisplay.innerText = rolActivo.toUpperCase();
             iDisplay.innerText = viajeroID;
-            pantallaFinal.style.display = 'flex'; // Usamos flex para centrar
+            pantallaFinal.style.display = 'flex';
             document.getElementById('panel-datos').style.display = 'none';
+            
+            // Limpiamos los datos del teléfono al terminar con éxito
+            localStorage.removeItem('rol_guardado');
+            localStorage.removeItem('sala_guardada');
         }
     }
 }
-
 
 async function enviarReporte() {
     const textoElement = document.getElementById('texto-bitacora');
@@ -902,7 +956,7 @@ async function enviarReporte() {
     const archivo = inputArchivo ? inputArchivo.files[0] : null;
     const hitoNombre = baseDeDatos[rolActivo][salaActual - 1].n;
 
-    // 2. VALIDACIÓN FLEXIBLE: Solo bloquea si falta TODO (Texto y Archivo)
+    
     if (!texto.trim() && !archivo) {
         alert("Navegante, debes escribir un hallazgo o adjuntar una evidencia para sellar el reporte.");
         return;
@@ -977,7 +1031,7 @@ function enviarFetch(payload) {
             }
         }
 
-        // --- 3. TU LÓGICA DE LIMPIEZA ORIGINAL ---
+        
         document.getElementById('texto-bitacora').value = "";
         document.getElementById('archivo-oculto').value = "";
         if(document.getElementById('status-archivo')) {
@@ -997,20 +1051,14 @@ function enviarFetch(payload) {
         }
     });
 }
-    let temporizadorInactividad;
-
-function resetearRelojInactividad() {
-    clearTimeout(temporizadorInactividad);
-    
-    temporizadorInactividad = setTimeout(regresarAlMenuPrincipal, 1200000); 
-}
-
 function regresarAlMenuPrincipal() {
-    // En lugar de recargar, simplemente forzamos el estado inicial
-    // Esto asegura que Analytics registre el fin de la navegación activa
+    // 1. Borramos el progreso guardado en el teléfono
+    localStorage.removeItem('rol_guardado');
+    localStorage.removeItem('sala_guardada');
+    
+    // 2. Redirigimos al inicio para limpiar Analytics
     window.location.href = window.location.pathname; 
 }
-
 // Escuchamos todas las interacciones posibles para saber que el usuario sigue ahí
 window.onload = resetearRelojInactividad;
 document.onmousemove = resetearRelojInactividad;
@@ -1019,11 +1067,6 @@ document.onclick = resetearRelojInactividad;
 document.ontouchstart = resetearRelojInactividad; // Crucial para los móviles (75% de tus usuarios)
 
 </script>
-
-
-
-
-
 
 
 

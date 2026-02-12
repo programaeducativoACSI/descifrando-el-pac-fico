@@ -181,6 +181,31 @@
     margin-bottom: 15px;
     border: 2px solid rgba(255,255,255,0.2); /* Un borde sutil para que se vea más pro */
 }
+    #info-dato {
+    font-size: 1.2rem;       
+    line-height: 1.6;           color: var(--tinta);
+    margin-bottom: 15px;
+    text-align: justify;     
+}
+
+
+#info-pregunta {
+    font-size: 1.15rem;      
+    font-weight: bold;       
+    color: #1b2631;          
+    font-style: italic;      
+    border-left: 3px solid var(--oro); 
+    padding-left: 10px;
+}
+
+
+#nombre-hito {
+    font-size: 2rem;         
+    font-family: 'Pirata One', cursive;
+    color: var(--azul-p);
+    margin-top: 5px;
+}
+
 </style>
 <body>
     <button id="btn-bitacora-global" onclick="abrirBitacoraCompartida()" class="btn-bitacora-flotante" style="display: none;">
@@ -233,10 +258,10 @@
                     <div id="status-archivo"></div> 
                     
                     <button type="button" class="btn-file" onclick="document.getElementById('archivo-oculto').click()">
-                        📷 ADJUNTAR EVIDENCIA
+                         📷 Pulsa para tomar una foto
                     </button>
-                 <input type="file" id="archivo-oculto" 
-       accept="image/*,audio/*,.m4a,.wav" 
+                  <input type="file" id="archivo-oculto" 
+       accept="image/*" 
        style="display: none;" 
        onchange="actualizarStatusArchivo()">
                     
@@ -994,6 +1019,7 @@ document.onclick = resetearRelojInactividad;
 document.ontouchstart = resetearRelojInactividad; // Crucial para los móviles (75% de tus usuarios)
 
 </script>
+
 
 
 

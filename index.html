@@ -262,6 +262,7 @@
                     </button>
                 <input type="file" id="archivo-oculto" 
        accept="image/*" 
+       capture="camera" 
        style="display: none;" 
        onchange="actualizarStatusArchivo()">
                     
@@ -304,6 +305,15 @@
     <img src="https://www.sanildefonso.org.mx/expos/somospacifico/images/logo_txt.png" 
          style="width: 140px; filter: brightness(0) invert(1); drop-shadow: 0 2px 4px rgba(0,0,0,0.5);">
 </div>
+<div id="loading-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 30000000; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;">
+    <div style="border: 4px solid #f3f3f3; border-top: 4px solid #b2945d; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite; margin-bottom: 20px;"></div>
+    <h2 style="font-family: 'Pirata One'; font-size: 2rem;">SELLANDO REPORTE...</h2>
+    <p style="padding: 0 20px;">Tu evidencia está viajando por el Pacífico.<br>Por favor, no cierres la ventana.</p>
+</div>
+
+<style>
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
 </body>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -398,8 +408,8 @@
        "Comerciante": [
     { n: "Puerto de Acapulco", d: `El cacao, de origen mexicano, fue un bien de gran valor: además de consumirse, funcionó como moneda en Mesoamérica. Las deidades asociadas a él representan su poder económico y su papel como uno de los primeros productos agrícolas exportados masivamente hacia las islas.`, p:`Busca la pieza que creas que tendría el valor más alto en el mercado de 'curiosidades' de la época. Toma una fotografía y escribe como pie de foto: 'Precio estimado:...'`  },
     { n: "Costa de Michoacán", d: `El biombo como mercancía de lujo: Los biombos formaban parte de los objetos más codiciados por los sectores más ricos de la Nueva España. La pieza que tienes frente a ti pudo haber sido adquirida por un virrey o un comerciante acaudalado, mostrando cómo el arte también fue un negocio altamente rentable.`, p: `¿Cuál sería el método para resguardar el biombo que usarías si lo tuvieras que llevar al centro de la Ciudad de México para su venta?` },
-    { n: "Cabo Corrientes", d: `Las bitácoras que ves en la sala registraban legalmente los bienes de lujo autorizados para cruzar el océano, garantizando un comercio sin competencia ilegal.`, p: `¿Qué consideras que sería una “mercancía legal”?` },
-    { n: "Mar de Cortés", d: `El Plano Demostrativo, dedicado por su capitán Pedro Antonio de Cossío al virrey de Nueva España, documenta el durísimo viaje entre Cavite y Acapulco (1755–1756), que duró 204 días debido a calmas y temporales, causando grandes sufrimientos y numerosas muertes. Su esposa sobrevivió al trayecto.`, p: `Busca en el plano los días que tardó el viaje de este galeón y tómale una foto.` },
+    { n: "Cabo Corrientes", d: `Con la finalidad de evitar la ruta transpacífica y establecer el comercio directo entre Cádiz y Manila, a través del cabo de Buena Esperanza y el Océano Índico, se establece la Real Compañía de Filipinas mediante la Real Cédula de Carlos III en 1785.`, p: `Toma una foto a la Real Cédula de Erección de la Compañía de Filipinas` },
+    { n: "Mar de Cortés", d: `El Plano Demostrativo, dedicado por su capitán Pedro Antonio de Cossío al virrey de Nueva España, documenta el durísimo viaje entre Cavite y Acapulco (1755–1756), que duró 204 días debido a calmas y temporales, causando grandes sufrimientos y numerosas muertes. Su esposa sobrevivió al trayecto.`, p: `Busca en el plano (manta) los días que tardó el viaje de este galeón y tómale una foto.` },
     { n: "Punta de Baja California", d: `Carga límite (valor de mercancía): Existía un límite de carga llamada “permisión”. En diversas épocas, se permitió la exportación de 250,000 monedas desde Manila y el retorno de 500,000 monedas en plata desde Acapulco.`, p: `Identifica la moneda de ocho reales de 1804 y tómale una foto.` },
     { n: "Costa de California", d: `El Parián era un mercado especializado en bienes de lujo. Surgido en Manila como espacio para el comercio chino, su modelo fue tan exitoso que se replicó en la Plaza Mayor de la Ciudad de México. Aquí se concentraba y controlaba la venta de seda, marfil y porcelana.`, p: `Toma una foto en la pintura de la plaza donde colocarías tu puesto.` },
     { n: "Zona de Albatros", d: `Porcelana de importación: Las vajillas de porcelana china fueron uno de los productos más valiosos del comercio transpacífico. Las piezas que ves en la sala no son solo objetos artísticos: eran artículos de alto valor que generaban grandes ganancias al llegar a la Ciudad de México.`, p: `¿Cuáles son los principales colores de la porcelana que hay en la sala?` },
@@ -1000,49 +1010,44 @@ async function enviarReporte() {
 }
 
 function enviarFetch(payload) {
-    // Feedback visual inmediato para el investigador
+    const overlay = document.getElementById('loading-overlay');
     const btnNext = document.getElementById('btn-next');
-    if (btnNext) {
-        btnNext.style.display = "block";
-        btnNext.disabled = true;
-        btnNext.innerText = "⌛ SELLANDO REPORTE...";
-    }
+    
+    // Mostramos el bloqueo total
+    if (overlay) overlay.style.display = 'flex';
 
     fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors', // Mantiene la velocidad de "disparar y olvidar"
+        mode: 'no-cors',
         body: JSON.stringify(payload)
     })
     .then(() => {
-        // --- 1. TU LÓGICA ORIGINAL DE ÉXITO ---
+        // Ocultamos el bloqueo
+        if (overlay) overlay.style.display = 'none';
+
         alert("✅ Reporte sellado con éxito. El camino está despejado.");
 
-        // --- 2. DESBLOQUEO Y LÓGICA DE SALA 15 ---
         if (btnNext) {
-            btnNext.disabled = false; // 🔓 Quita el bloqueo
-            
-            // Verificamos si es la última sala para cambiar el texto y color
+            btnNext.disabled = false;
             if (salaActual === 15) {
                 btnNext.innerText = "📜 FINALIZAR TRAVESÍA";
-                btnNext.style.background = "#78281f"; // Color vino original
+                btnNext.style.background = "#78281f";
             } else {
                 btnNext.innerText = "SIGUIENTE SALA →";
                 btnNext.style.background = "var(--oro)"; 
             }
+            btnNext.style.display = "block";
         }
 
-        
+        // Limpieza de campos
         document.getElementById('texto-bitacora').value = "";
         document.getElementById('archivo-oculto').value = "";
         if(document.getElementById('status-archivo')) {
             document.getElementById('status-archivo').innerText = "";
         }
-        
-        // Si tienes un contenedor de vista previa de imagen, también convendría limpiarlo aquí
-        const preview = document.getElementById('preview-imagen'); 
-        if(preview) preview.src = ""; 
     })
     .catch(err => {
+        if (overlay) overlay.style.display = 'none';
         console.error(err);
         alert("Error de conexión. El Archivo Real no pudo recibir tu reporte.");
         if (btnNext) {
@@ -1067,6 +1072,4 @@ document.onclick = resetearRelojInactividad;
 document.ontouchstart = resetearRelojInactividad; // Crucial para los móviles (75% de tus usuarios)
 
 </script>
-
-
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -452,20 +452,30 @@ function aplicarColorPorRango(numeroSala) {
     const etiquetaSala = document.getElementById('sala-tag');
     if (!etiquetaSala) return;
 
-    let colorRango;
+   
+    const coloresPorSala = {
+        1:  "#4080a4", 
+        2:  "#791e23", 
+        3:  "#ded270",
+        4:  "#4080a4", 
+        5:  "#7b8956",
+        6:  "#ded270",
+        7:  "#4080a4",
+        8:  "#ded270",
+        9:  "#791e23",
+        10: "#4080a4",
+        11: "#7b8956",
+        12: "#791e23",
+        13: "#7000aa",
+        14: "#1b1b1d",
+        15: "#7b8956"  // Color especial para el cierre de travesía
+    };
 
-    if (numeroSala >= 1 && numeroSala <= 3) {
-        colorRango = "#e84d10";
-    } else if (numeroSala >= 4 && numeroSala <= 10) {
-        colorRango = "#0047c2";
-    } else if (numeroSala >= 11 && numeroSala <= 15) {
-        colorRango = "#7000aa";
-    }
+    const colorElegido = coloresPorSala[numeroSala] || "#b2945d";
 
-        etiquetaSala.style.borderColor = colorRango;
-    etiquetaSala.style.color = colorRango;
-}
-function renderPoint(id, auto = false) {
+        etiquetaSala.style.borderColor = colorElegido;
+    etiquetaSala.style.color = colorElegido;
+}function renderPoint(id, auto = false) {
     const hito = rutaActual[id - 1];
     const info = baseDeDatos[rolActivo][id - 1];
 
@@ -482,13 +492,12 @@ function renderPoint(id, auto = false) {
 
     
   map.eachLayer((layer) => {
-        // Solo quitamos marcadores y líneas, dejamos el fondo del mapa intacto
-        if (layer instanceof L.Marker || layer instanceof L.Polyline) {
+               if (layer instanceof L.Marker || layer instanceof L.Polyline) {
             map.removeLayer(layer);
         }
     });
 
-    // --- 3. CREAR MARCADOR ---
+    
     const marker = L.marker([hito.lat, hito.lng]).addTo(map);
 
     // --- 4. EVENTO CLICK DEL MARCADOR ---
@@ -559,7 +568,7 @@ function renderPoint(id, auto = false) {
                 btnIns.style.opacity = '1'; 
             }, 100);
             
-        }, 30000); // <-- Aquí configuramos los 30 segundos
+        }, 67000); // <-- Aquí configuramos los 30 segundos
     }
 } // Aquí termina la función renderPoint
 function accesoRol(rol) {
@@ -720,47 +729,51 @@ async function enviarReporte() {
     enviarFetch(payload);
 }
 
-// --- FUNCIÓN AUXILIAR DE COMPRESIÓN (Añádela a tu script) ---
-function comprimirImagen(archivo) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(archivo);
-        reader.onload = (event) => {
-            const img = new Image();
-            img.src = event.target.result;
-            img.onload = () => {
-                const canvas = document.createElement('canvas');
-                const MAX_WIDTH = 1000; // Suficiente para ver bien en el Dashboard
-                let width = img.width;
-                let height = img.height;
+function enviarFetch(payload) {
+    const overlay = document.getElementById('loading-overlay');
+    const btnNext = document.getElementById('btn-next');
+    
+    if (overlay) overlay.style.display = 'flex';
 
-                if (width > height) {
-                    if (width > MAX_WIDTH) {
-                        height *= MAX_WIDTH / width;
-                        width = MAX_WIDTH;
-                    }
-                } else {
-                    if (height > MAX_WIDTH) {
-                        width *= MAX_WIDTH / height;
-                        height = MAX_WIDTH;
-                    }
-                }
-                
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height);
-                
-                // 0.7 es la calidad (70%). Reduce el peso drásticamente sin perder detalle visual.
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-                resolve(dataUrl);
-            };
-            img.onerror = reject;
-        };
-        reader.onerror = reject;
+    fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Importante: no-cors no permite leer la respuesta, pero podemos manejar el éxito del envío
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        // --- TODO ESTO SOLO PASA SI EL ENVÍO SE PROCESÓ ---
+        if (overlay) overlay.style.display = 'none';
+        
+        alert("✅ Reporte sellado con éxito. El camino está despejado.");
+
+        if (btnNext) {
+            btnNext.disabled = false;
+            btnNext.style.display = "block";
+            btnNext.innerText = salaActual === 15 ? "📜 FINALIZAR TRAVESÍA" : "SIGUIENTE SALA →";
+            btnNext.style.background = salaActual === 15 ? "#78281f" : "var(--oro)";
+        }
+
+        // Limpiamos los campos para evitar envíos duplicados
+        document.getElementById('texto-bitacora').value = "";
+        document.getElementById('archivo-oculto').value = "";
+        if(document.getElementById('status-archivo')) {
+            document.getElementById('status-archivo').innerText = "";
+        }
+    })
+    .catch(err => {
+        // --- SI HAY ERROR, NO AVANZA ---
+        if (overlay) overlay.style.display = 'none';
+        console.error("Error en el envío:", err);
+        
+        alert("⚠️ El Archivo Real está saturado o no tienes internet. Tu reporte no se guardó. Intenta sellarlo de nuevo.");
+        
+        // El botón de siguiente permanece bloqueado o ausente
+        if (btnNext) {
+            btnNext.disabled = true;
+            btnNext.innerText = "❌ ERROR EN ENVÍO";
+        }
     });
 }
-
 
 function abrirBitacoraCompartida() {
     const modal = document.getElementById('modal-bitacora');
@@ -975,33 +988,27 @@ function enviarFetch(payload) {
     const overlay = document.getElementById('loading-overlay');
     const btnNext = document.getElementById('btn-next');
     
-    // Mostramos el bloqueo total
     if (overlay) overlay.style.display = 'flex';
 
     fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'no-cors', // Importante: no-cors no permite leer la respuesta, pero podemos manejar el éxito del envío
         body: JSON.stringify(payload)
     })
     .then(() => {
-        // Ocultamos el bloqueo
+        // --- TODO ESTO SOLO PASA SI EL ENVÍO SE PROCESÓ ---
         if (overlay) overlay.style.display = 'none';
-
+        
         alert("✅ Reporte sellado con éxito. El camino está despejado.");
 
         if (btnNext) {
             btnNext.disabled = false;
-            if (salaActual === 15) {
-                btnNext.innerText = "📜 FINALIZAR TRAVESÍA";
-                btnNext.style.background = "#78281f";
-            } else {
-                btnNext.innerText = "SIGUIENTE SALA →";
-                btnNext.style.background = "var(--oro)"; 
-            }
             btnNext.style.display = "block";
+            btnNext.innerText = salaActual === 15 ? "📜 FINALIZAR TRAVESÍA" : "SIGUIENTE SALA →";
+            btnNext.style.background = salaActual === 15 ? "#78281f" : "var(--oro)";
         }
 
-        // Limpieza de campos
+        // Limpiamos los campos para evitar envíos duplicados
         document.getElementById('texto-bitacora').value = "";
         document.getElementById('archivo-oculto').value = "";
         if(document.getElementById('status-archivo')) {
@@ -1009,12 +1016,16 @@ function enviarFetch(payload) {
         }
     })
     .catch(err => {
+        // --- SI HAY ERROR, NO AVANZA ---
         if (overlay) overlay.style.display = 'none';
-        console.error(err);
-        alert("Error de conexión. El Archivo Real no pudo recibir tu reporte.");
+        console.error("Error en el envío:", err);
+        
+        alert("⚠️ El Archivo Real está saturado o no tienes internet. Tu reporte no se guardó. Intenta sellarlo de nuevo.");
+        
+        // El botón de siguiente permanece bloqueado o ausente
         if (btnNext) {
-            btnNext.disabled = false;
-            btnNext.innerText = "REINTENTAR ENVÍO";
+            btnNext.disabled = true;
+            btnNext.innerText = "❌ ERROR EN ENVÍO";
         }
     });
 }
@@ -1124,7 +1135,6 @@ function resetearRelojInactividad() {
     temporizadorInactividad = setTimeout(regresarAlMenuPrincipal, 1800000); 
 }
 </script>
-
 
 
 
